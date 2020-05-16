@@ -1,22 +1,23 @@
 # Build
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-bionic as build-env
-
+FROM microsoft/dotnet:2.2-sdk AS build-env
+RUN mkdir /app
 WORKDIR /app
 
 COPY ./src/WebAPI/*.csproj ./
 RUN dotnet restore
 
 COPY ./src/WebAPI ./
-RUN dotnet publish -c Release -o webapi
+RUN dotnet build
+RUN dotnet publish -c Release -o out
 
 # Deploy
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-bionic
-
+FROM microsoft/dotnet:2.2-aspnetcore-runtime
+RUN mkdir /app
 WORKDIR /app
 
-COPY --from=build-env /app/webapi ./
+COPY --from=build-env /app/out ./
 
 EXPOSE 80
 

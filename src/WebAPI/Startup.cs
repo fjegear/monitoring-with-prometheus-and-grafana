@@ -36,20 +36,26 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMetricServer();
+            Counter counter = CreateCounter();
+
             app.Use((context, next) =>
             {
-                var counter = Metrics.CreateCounter("request_counter", "Request count",
-                    new CounterConfiguration
-                    {
-                        LabelNames = new[] { "method", "endpoint" }
-                    });
-
                 counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
                 return next();
             });
 
+            app.UseMetricServer();
+            app.UseHttpMetrics();
             app.UseMvc();
+        }
+
+        private static Counter CreateCounter()
+        {
+            return Metrics.CreateCounter("request_counter", "Count requests to the API endpoints",
+                new CounterConfiguration
+                {
+                    LabelNames = new[] { "method", "endpoint" }
+                });
         }
     }
 }
