@@ -5,4 +5,5 @@ This repository contains a PoC for creating a monitoring system for a .NET Core 
 
 ![image](https://user-images.githubusercontent.com/39745780/82119710-0b09fa00-9781-11ea-8d1a-46f103573d59.png)
 
-![image](https://user-images.githubusercontent.com/39745780/82126172-36a1da00-97ab-11ea-8b26-97f91d0e7703.png)
+![image](https://user-images.githubusercontent.com/39745780/82126345-669dad00-97ac-11ea-9a75-7fdc94b52543.png)
+
