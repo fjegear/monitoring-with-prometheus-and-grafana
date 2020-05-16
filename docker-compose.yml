@@ -1,0 +1,38 @@
+version: "3.4"
+
+networks:
+  inner_net:
+    driver: overlay
+  
+services:
+  web:
+    image: "netcore-monitoring"
+    ports:
+      - "8080:80"
+    networks: 
+      - inner_net
+
+  prometheus:
+    image: quay.io/prometheus/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - web
+    networks:
+      - inner_net
+
+  grafana:
+    image: grafana/grafana
+    depends_on:
+        - prometheus
+    ports:
+        - "3000:3000"
+    volumes:
+        - ./grafana/data/:/var/lib/grafana
+        - ./grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+        - ./grafana_config/grafana.config
+    networks:
+        - inner_net

@@ -1,0 +1,8 @@
+1. Clone the repo
+2. Go to repo root folder
+3. Run command: docker build . -t netcore-monitoring
+4. Run command: docker-compose up (if need to initialize swarm, run docker swarm init)
+
+
+docker system prune
+docker rmi $(docker images -f "dangling=true" -q)
