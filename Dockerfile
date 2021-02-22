@@ -1,6 +1,6 @@
 # Build
 
-FROM microsoft/dotnet:2.2-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 RUN mkdir /app
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o out
 
 # Deploy
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 RUN mkdir /app
 WORKDIR /app
 

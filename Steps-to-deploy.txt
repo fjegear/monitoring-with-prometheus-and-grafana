@@ -4,5 +4,5 @@
 4. Run command: docker-compose up (if need to initialize swarm, run docker swarm init)
 
 
-docker system prune
+-- NO -- docker system prune
 docker rmi $(docker images -f "dangling=true" -q)
